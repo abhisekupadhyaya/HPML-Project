@@ -1,102 +1,124 @@
-# HPML-Project
+# HPML-Project: Automated Multi-GPU Training and Deployment Framework for PyTorch
 
-High Performance Machine Learning Course
-Project Proposal: Automated Multi-GPU Training and Deployment Framework for PyTorch. Ideally, there should be a solution that is compatible with dockers and kubernetes.
+## 1. Summary
 
-## 1. Executive Summary
+This project aims to develop a high-performance, automated framework for multi-GPU training and deployment in PyTorch. The solution will seamlessly scale AI workloads across heterogeneous GPU and CPU infrastructure, addressing critical challenges in memory management, load balancing, and communication efficiency. The framework will provide automatic model partitioning, efficient memory management, and optimized communication between devices to maximize performance and resource utilization.
 
-This project aims to develop an automated framework for multi-GPU training and deployment in PyTorch, addressing critical challenges in memory management and weight allocation across multiple GPUs. The proposed solution will simplify the process of distributed training, optimize resource utilization, and improve overall performance for machine learning practitioners.
+## 2. Key Features
 
-## 2. [Problem Statement](./problems.md)
+### 2.1 Seamless Scalability
+- Automatic scaling across multiple GPUs within a single node
+- Support for multi-node distributed training and inference
+- Hybrid GPU-CPU configurations for flexible resource utilization
 
-As machine learning models grow in complexity, training and deploying them on a single GPU often leads to out-of-memory errors and extended training times. While multi-GPU solutions exist, they typically require manual optimization and complex setup processes. The main challenges include:
+### 2.2 Intelligent Model Partitioning
+- Automated distribution of model components and data across available GPUs
+- Analysis of model architecture and device capabilities for optimal partitioning
+- Support for both data parallelism and model parallelism
+ 
+### 2.3 Dynamic Memory Management
+- Adaptive memory allocation based on real-time resource availability
+- Intelligent tensor swapping between GPU and CPU memory
+- Implementation of memory-efficient optimizers (e.g., ZeRO optimizer)
 
-1. Memory management issues leading to out-of-memory errors
-2. Complexity in setting up distributed training environments
-3. Inefficient load balancing across multiple GPUs
-4. Communication overhead in distributed settings
-5. Need for manual optimization of memory and weight allocations
+### 2.4 Advanced Load Balancing
+- Dynamic task scheduling based on device performance
+- Adaptive batch size adjustment per device
+- Workload migration to balance utilization across nodes
 
-## 3. [Proposed Solution](./Solutions.md)
+### 2.5 Optimized Communication
+- Efficient inter-GPU communication using NCCL
+- Gloo for CPU-CPU and GPU-CPU communication
+- Automatic selection of optimal communication primitives
 
-We propose to develop an automated framework that addresses these challenges by:
+### 2.6 Fault Tolerance and Error Handling
+- Checkpoint-restart capabilities for resilience
+- Automatic node failure detection and recovery
+- Graceful degradation in case of device unavailability
 
-1. Automating the distribution of model components and data across available GPUs
-2. Implementing dynamic memory management that adapts to model architecture and available resources
-3. Developing algorithms for efficient load balancing across GPUs
-4. Optimizing inter-GPU communication protocols
-5. Creating a user-friendly API that abstracts the complexities of distributed training
+### 2.7 User-Friendly API
+- High-level abstractions for distributed training setup
+- Seamless integration with existing PyTorch models and training loops
+- Built-in monitoring and visualization tools
+
+## 3. Architecture
+1. **Orchestrator**: Manages overall job execution and resource allocation
+2. **Model Partitioner**: Analyzes model architecture and partitions across devices
+3. **Memory Manager**: Handles efficient data placement and movement
+4. **Communication Layer**: Optimizes inter-device data transfer
+5. **Synchronization Manager**: Coordinates parameter updates across devices
+6. **Fault Detector**: Monitors system health and initiates recovery procedures
+7. **Load Balancer**: Dynamically adjusts workload distribution
+8. **Monitoring Subsystem**: Collects and analyzes performance metrics
 
 ## 4. Methodology
+1. **Analysis**: Examine existing multi-GPU solutions and their limitations
+2. **Design**: Architect the framework focusing on modularity and extensibility
+3. **Implementation**: Develop core components (model partitioning, memory management, load balancing, etc.)
+4. **Testing and Benchmarking**: Rigorously test on various model architectures and datasets
+5. **Optimization**: Iteratively refine based on benchmark results and user feedback
+6. **Documentation and Deployment**: Create comprehensive documentation and open-source release
 
-The project will be executed in the following phases:
+## 5. Evaluation Metrics
+1. Scalability: Performance improvement as GPUs are added
+2. Memory efficiency: Reduction in out-of-memory errors and overall memory utilization
+3. Training speed: Improvements in samples processed per second
+4. Communication overhead: Reduction in inter-GPU communication time
+5. Ease of use: API intuitiveness and setup complexity
 
-1. **Analysis**: Thoroughly examine existing multi-GPU solutions and their limitations
-2. **Design**: Architect the automated framework, focusing on modularity and extensibility
-3. **Implementation**: Develop core components including:
-   - Automated model partitioning
-   - Dynamic memory allocation
-   - Load balancing algorithms
-   - Efficient communication protocols
-   - High-level API
-4. **Testing and Benchmarking**: Rigorously test the framework on various model architectures and datasets
-5. **Optimization**: Iteratively refine the framework based on benchmark results and user feedback
-6. **Documentation and Deployment**: Create comprehensive documentation and deploy as an open-source PyTorch extension
+## Existing Systems
 
-## 5. Technical Approach
+### [Scalability and Resource Management](Exsiting_Solutions/AI_Scalability_and_Resource_Management_System.md)
 
-The framework will build upon existing PyTorch functionalities and incorporate state-of-the-art techniques:
+1. **Ray**: Excels in flexibility and ease of use for scaling Python and AI applications. Offers a unified framework with libraries for various ML tasks.
 
-1. **DistributedDataParallel (DDP)**: Leverage DDP's efficient process-based approach for multi-GPU training
-2. **Automatic Mixed Precision (AMP)**: Implement AMP to reduce memory usage and speed up training
-3. **Gradient Checkpointing**: Incorporate gradient checkpointing to optimize memory usage for large models
-4. **ZeRO (Zero Redundancy Optimizer)**: Adapt ZeRO techniques to reduce memory redundancy across GPUs
-5. **Dynamic Memory Management**: Develop advanced memory management algorithms that adapt to real-time resource availability
+2. **Dask**: Strong in scaling analytics and scientific computing workloads, particularly suited for data scientists familiar with NumPy and Pandas.
 
-## 6. Expected Outcomes
+3. **Kubernetes**: While not AI-specific, provides robust container orchestration and resource management, forming a foundation for scalable AI infrastructure.
 
-1. A user-friendly, automated multi-GPU training and deployment framework for PyTorch
-2. Significant reduction in out-of-memory errors during multi-GPU training
-3. Improved training speeds and resource utilization compared to manual multi-GPU setups
-4. Comprehensive documentation and examples to facilitate adoption by the ML community
+4. **SLURM**: Offers fine-grained control over resource allocation, particularly suitable for high-performance computing environments.
 
-## 7. Evaluation Metrics
+### [Distributed Training Frameworks](Exsiting_Solutions/Distributed_Training_Frameworks.md)
 
-The project's success will be evaluated based on:
+1. **Horovod**: Known for its simplicity in scaling existing single-GPU code to multi-GPU setups. Supports multiple deep learning libraries.
 
-1. Reduction in out-of-memory errors compared to baseline PyTorch implementations
-2. Training speed improvements across various model architectures and datasets
-3. Memory utilization efficiency across multiple GPUs
-4. Ease of use, measured through user studies and community feedback
+2. **DeepSpeed**: Offers comprehensive parallelism options and advanced optimization techniques, particularly suited for large-scale models.
 
-## 8. Timeline
+3. **PyTorch Distributed**: Provides native distributed training support within the PyTorch ecosystem, offering a balance of performance and ease of use.
 
-Week 1-2: Analysis of existing solutions and detailed project planning
-Week 3-4: Framework architecture design and initial implementation
-Week 5-6: Core component development (model partitioning, memory allocation)
-Week 7-8: Implementation of load balancing and communication optimization
-Week 9-10: High-level API development and initial testing
-Week 11-12: Comprehensive testing, benchmarking, and optimization
-Week 13-14: Documentation, final refinements, and preparation for deployment
+### [Fault Tolerance and Checkpointing](Exsiting_Solutions/Fault_Tolerance_and_Checkpointing.md)
 
-## 9. Resources Required
+1. **TensorFlow Checkpoint**: Robust built-in mechanism for saving and restoring model states, well-integrated with TensorFlow's ecosystem.
 
-- Access to a multi-GPU computing environment (minimum 4 GPUs)
-- PyTorch development environment
-- Benchmark datasets (e.g., ImageNet, COCO)
-- Collaboration tools for code versioning and project management
+2. **PyTorch Lightning**: Simplifies training workflows with automatic checkpointing and cloud storage integration.
 
-## 10. Potential Challenges and Mitigation Strategies
+3. **Ray**: Offers automatic checkpointing and distributed snapshot creation, with good integration across various ML frameworks.
 
-1. **Challenge**: Complexity in handling diverse model architectures
-   **Mitigation**: Develop a flexible framework that can adapt to various model types, with extensive testing on different architectures
+### [Memory Optimization](Exsiting_Solutions/Memory_Optimization_Systems.md)
 
-2. **Challenge**: Balancing automation with user control
-   **Mitigation**: Design the API to allow for both fully automated operation and fine-grained user control when needed
+1. **ZeRO (Zero Redundancy Optimizer)**: Powerful technique for training extremely large models by partitioning optimizer states, gradients, and parameters across GPUs.
 
-3. **Challenge**: Ensuring compatibility with future PyTorch updates
-   **Mitigation**: Maintain close alignment with PyTorch's development roadmap and design for modularity to ease future updates
+2. **Gradient Checkpointing**: Widely adopted technique that trades computation for memory by selectively recomputing activations.
 
-## 11. Conclusion
+3. **Mixed Precision Training**: Reduces memory usage and increases computational throughput by using lower precision for most operations.
 
-This project aims to significantly advance the state of multi-GPU training and deployment in PyTorch by developing an automated framework that addresses key challenges in memory management, load balancing, and ease of use. By simplifying the process of distributed training and optimizing resource utilization, this framework has the potential to accelerate machine learning research and development across various domains.
+### [Monitoring and Profiling](Exsiting_Solutions/Monitoring_and_Profiling.md)
+
+1. **NVIDIA DCGM**: Comprehensive suite for managing and monitoring NVIDIA GPUs in cluster environments.
+
+2. **PyTorch Profiler**: Built-in tool for detailed performance analysis of PyTorch models, including GPU kernel analysis.
+
+3. **NVIDIA Nsight Systems**: System-wide performance analysis tool offering detailed insights into GPU and CPU operations.
+
+4. **TensorBoard**: Widely used for visualizing training progress and performance metrics across various deep learning frameworks.
+
+
+Citations:\
+[1] https://github.com/dnddnjs/pytorch-multigpu \
+[2] https://pytorch.org/tutorials/beginner/ddp_series_multigpu.html \
+[3] https://www.aime.info/blog/en/multi-gpu-pytorch-training \
+[4] https://www.run.ai/guides/multi-gpu/pytorch-multi-gpu-4-techniques-explained \
+[5] https://www.reddit.com/r/MachineLearning/comments/1dxtaez/d_what_do_you_all_use_for_large_scale_training/ \
+[6] https://stackoverflow.com/questions/73267607/how-to-train-model-with-multiple-gpus-in-pytorch \
+[7] https://discuss.pytorch.org/t/multi-gpu-training-is-out-of-sync/205185 \
+[8] https://pytorch.org/tutorials/beginner/former_torchies/parallelism_tutorial.html
