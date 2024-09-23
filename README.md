@@ -66,7 +66,7 @@ This project aims to develop a high-performance, automated framework for multi-G
 4. Communication overhead: Reduction in inter-GPU communication time
 5. Ease of use: API intuitiveness and setup complexity
 
-## Existing Systems
+## 6. Existing Systems
 
 ### [Scalability and Resource Management](Exsiting_Solutions/AI_Scalability_and_Resource_Management_System.md)
 
@@ -111,6 +111,20 @@ This project aims to develop a high-performance, automated framework for multi-G
 3. **NVIDIA Nsight Systems**: System-wide performance analysis tool offering detailed insights into GPU and CPU operations.
 
 4. **TensorBoard**: Widely used for visualizing training progress and performance metrics across various deep learning frameworks.
+
+## 7. To-Do
+
+1. Analyze existing systems:
+   - Conduct a thorough review of drawbacks and limitations in current solutions
+   - Identify key features and components that can be incorporated or improved upon
+
+2. Design initial prototype:
+   - Select a specific model architecture, network topology, and hardware configuration as a starting point
+   - Create detailed specifications for each component (e.g., model partitioner, memory manager)
+
+3. Implement core functionality:
+
+4. Expand hardware and model support:
 
 
 Citations:\
