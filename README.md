@@ -122,9 +122,9 @@ This project aims to develop a high-performance, automated framework for multi-G
    - Select a specific model architecture, network topology, and hardware configuration as a starting point
    - Create detailed specifications for each component (e.g., model partitioner, memory manager)
 
-3. Implement core functionality:
+3. Implement core functionality
 
-4. Expand hardware and model support:
+4. Expand hardware and model support
 
 
 Citations:\
